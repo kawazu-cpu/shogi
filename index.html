@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>将棋</title>
+<title>ドパ将棋</title>
 <meta name="description" content="詰将棋100問・無限モード・4段階のコンピューター対局">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -11,9 +11,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="将棋">
+<meta name="apple-mobile-web-app-title" content="ドパ将棋">
 <meta name="theme-color" content="#D3CFA3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1E2620" media="(prefers-color-scheme: dark)">
+
+
 
 
 
@@ -143,7 +145,7 @@ h1{font-family:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;fon
 </head>
 <body>
 <div class="wrap">
- <header><h1>将棋</h1><div class="qlabel" id="qlabel"></div></header>
+ <header><h1>ドパ将棋</h1><div class="qlabel" id="qlabel"></div></header>
  <div class="picker" id="picker"></div>
  <div class="rulespage" id="rulesPage" style="display:none"></div>
  <div class="charbar" id="charBar" style="display:none"><div class="face" id="charFace"></div><div class="talk"><div class="cname" id="charName"></div><div class="bubble" id="charBubble"></div></div></div>
@@ -381,6 +383,7 @@ return{setScale:x=>{TSCALE=x},init,copy,make,unmake,legalMoves,inCheck,think,per
 
 </script>
 <script>
+const SHOW_CHARS=true;
 const PROBS=[{"n":1,"s":[["GI",4,1]],"g":[["OU",5,1]],"h":{"KI":1},"gh":{"FU":1}},{"n":1,"s":[["GI",5,3]],"g":[["OU",5,1]],"h":{"KI":1},"gh":{"FU":1}},{"n":1,"s":[["GI",1,1]],"g":[["OU",2,1]],"h":{"KI":1},"gh":{"GI":1}},{"n":1,"s":[["HI",4,2]],"g":[["OU",3,1]],"h":{"KI":1},"gh":{"FU":1}},{"n":1,"s":[["KA",4,5]],"g":[["OU",1,1]],"h":{"KI":1}},{"n":1,"s":[["HI",1,2]],"g":[["OU",2,1]],"h":{"HI":1}},{"n":1,"s":[["GI",4,1]],"g":[["OU",3,1]],"h":{"KI":1}},{"n":1,"s":[["KA",2,4]],"g":[["OU",4,1]],"h":{"KI":1}},{"n":1,"s":[["+HI",5,2]],"g":[["OU",2,1]],"h":{"KI":1}},{"n":1,"s":[["+HI",3,2]],"g":[["OU",1,1]],"h":{"GI":1}},{"n":1,"s":[["KA",3,1],["KA",1,4]],"g":[["OU",1,1]],"h":{"KI":1},"gh":{"FU":1}},{"n":1,"s":[["GI",3,2]],"g":[["OU",1,3],["KY",1,4]],"h":{"KI":1},"gh":{"FU":1}},{"n":1,"s":[["GI",2,3]],"g":[["OU",1,3]],"h":{"KI":1},"gh":{"KY":1}},{"n":1,"s":[["+KA",5,3]],"g":[["OU",5,1]],"h":{"GI":1},"gh":{"KE":1}},{"n":1,"s":[["+KA",2,4]],"g":[["OU",4,1]],"h":{"KI":1}},{"n":1,"s":[["HI",2,4]],"g":[["OU",1,3]],"h":{"HI":1}},{"n":1,"s":[["+HI",4,2]],"g":[["OU",1,1]],"h":{"GI":1}},{"n":1,"s":[["+KA",1,5],["+KA",2,1]],"g":[["OU",2,3]],"h":{"KI":1}},{"n":1,"s":[["HI",2,3],["KI",3,1]],"g":[["OU",1,1]],"h":{"HI":1},"gh":{"FU":1}},{"n":1,"s":[["+KA",4,2],["GI",2,2]],"g":[["OU",1,2]],"h":{"KI":1},"gh":{"FU":1}},{"n":3,"s":[["KA",3,4],["GI",4,1]],"g":[["OU",5,1],["KI",6,1]],"h":{"KY":1,"KI":1}},{"n":3,"s":[["HI",4,4],["GI",4,1],["KA",3,3]],"g":[["OU",3,1],["HI",1,2],["FU",2,1]],"h":{"KI":1}},{"n":3,"s":[["HI",3,2]],"g":[["OU",5,1]],"h":{"HI":1},"gh":{"FU":1}},{"n":3,"s":[["KE",1,7],["+HI",2,6]],"g":[["OU",1,3]],"h":{"KI":1},"gh":{"FU":1}},{"n":3,"s":[["HI",4,2],["GI",4,5],["FU",3,2]],"g":[["OU",2,1],["FU",4,3]],"h":{"KI":1,"GI":1}},{"n":3,"s":[["+KA",4,2],["KA",4,5]],"g":[["OU",1,1]],"h":{"KY":1},"gh":{"KE":1}},{"n":3,"s":[["+HI",4,1],["+HI",3,2],["KE",3,5]],"g":[["OU",1,2],["KA",3,4],["FU",2,2]],"h":{"KI":1}},{"n":3,"s":[["GI",1,3],["GI",3,3]],"g":[["OU",1,1],["GI",1,2],["FU",2,3],["KI",2,1]],"h":{"KI":1}},{"n":3,"s":[["+HI",1,3]],"g":[["OU",2,1]],"h":{"HI":1}},{"n":3,"s":[["+KA",3,1]],"g":[["OU",1,2]],"h":{"KI":1}},{"n":3,"s":[["FU",3,5],["KE",1,4],["KA",1,3]],"g":[["OU",1,1],["HI",2,3]],"h":{"KI":2}},{"n":3,"s":[["HI",4,3],["GI",1,4]],"g":[["OU",2,2]],"h":{"GI":1},"gh":{"GI":1}},{"n":3,"s":[["+HI",5,3]],"g":[["OU",2,2]],"h":{"KI":1}},{"n":3,"s":[["+HI",7,3]],"g":[["OU",4,1]],"h":{"KI":1}},{"n":3,"s":[["KI",1,4],["+KA",3,2]],"g":[["OU",1,1]],"h":{"FU":1,"GI":1},"gh":{"KE":1}},{"n":3,"s":[["+KA",4,4],["+KA",2,3],["KE",7,5]],"g":[["OU",4,2]],"h":{"HI":1},"gh":{"GI":1}},{"n":3,"s":[["KA",1,5],["GI",2,4],["GI",1,3]],"g":[["OU",1,1]],"h":{"HI":1},"gh":{"FU":1}},{"n":3,"s":[["HI",2,4],["KE",6,4]],"g":[["OU",5,1]],"h":{"HI":1}},{"n":3,"s":[["HI",2,6]],"g":[["OU",1,2]],"h":{"FU":1,"HI":1},"gh":{"KE":1}},{"n":3,"s":[["KI",4,3],["KA",4,5]],"g":[["OU",2,2]],"h":{"HI":1}},{"n":3,"s":[["+HI",4,6],["KI",1,4]],"g":[["OU",2,2]],"h":{"KI":1}},{"n":3,"s":[["KE",5,3],["+HI",4,3]],"g":[["OU",2,1]],"h":{"HI":1}},{"n":3,"s":[["KE",4,5],["GI",2,2],["KY",4,2]],"g":[["OU",3,2],["KE",1,3],["FU",5,4],["GI",4,4]],"h":{"KI":2},"gh":{"GI":1}},{"n":3,"s":[["HI",3,5],["GI",2,4]],"g":[["OU",1,1]],"h":{"GI":1}},{"n":3,"s":[["+HI",2,2]],"g":[["OU",5,1]],"h":{"GI":2}},{"n":3,"s":[["HI",4,3]],"g":[["OU",1,1],["KI",1,2]],"h":{"HI":1}},{"n":3,"s":[["KE",4,4],["GI",5,1],["+HI",5,2]],"g":[["OU",2,1],["GI",1,2],["GI",4,1],["GI",1,1]],"h":{"KI":1}},{"n":3,"s":[["+KA",6,1]],"g":[["OU",4,2],["FU",3,1]],"h":{"HI":1,"KI":1},"gh":{"GI":1}},{"n":3,"s":[["KI",1,3],["HI",5,4]],"g":[["OU",2,1]],"h":{"HI":1}},{"n":3,"s":[["KI",3,1],["FU",4,4],["KY",2,4]],"g":[["OU",1,1],["KI",2,1],["KA",1,2],["FU",3,2]],"h":{"KI":1}},{"n":3,"s":[["GI",5,5],["HI",2,3]],"g":[["OU",3,1]],"h":{"KI":1}},{"n":3,"s":[["KE",3,4]],"g":[["OU",1,1],["KE",1,3]],"h":{"HI":1,"KA":1},"gh":{"FU":1}},{"n":3,"s":[["KY",3,7],["HI",3,5],["HI",2,1]],"g":[["OU",1,3]],"h":{"KA":1},"gh":{"KY":1}},{"n":3,"s":[["+HI",5,3],["FU",5,5]],"g":[["OU",2,2]],"h":{"KI":1}},{"n":3,"s":[["HI",3,4],["KY",1,5]],"g":[["OU",2,2],["GI",1,2]],"h":{"HI":1},"gh":{"FU":1}},{"n":5,"s":[["KE",2,4],["+KA",3,3]],"g":[["OU",1,3]],"h":{"KI":1,"GI":1},"gh":{"KE":1}},{"n":5,"s":[["+KA",3,7],["+KA",3,3],["KY",4,7]],"g":[["OU",1,3]],"h":{"KY":2},"gh":{"FU":1}},{"n":5,"s":[["KA",1,4],["KE",1,5]],"g":[["OU",1,1],["HI",2,3],["FU",2,1]],"h":{"KI":1},"gh":{"FU":1}},{"n":5,"s":[["GI",3,3],["+KA",2,5]],"g":[["OU",1,3],["KI",1,4]],"h":{"KE":1,"HI":1}},{"n":5,"s":[["+KA",1,5],["FU",2,3]],"g":[["OU",3,2]],"h":{"KI":1}},{"n":5,"s":[["KE",2,4]],"g":[["OU",1,1]],"h":{"HI":1,"KE":1},"gh":{"FU":1}},{"n":5,"s":[["KA",3,1],["GI",2,4],["KA",4,2]],"g":[["OU",2,1],["KI",1,2],["HI",2,2]],"h":{"KI":1}},{"n":5,"s":[["+HI",5,2],["GI",1,5]],"g":[["OU",2,1]],"h":{"GI":1}},{"n":5,"s":[["KE",3,4]],"g":[["OU",2,1]],"h":{"KE":1,"HI":1}},{"n":5,"s":[["GI",2,4]],"g":[["OU",2,2]],"h":{"GI":2}},{"n":5,"s":[["KI",1,6],["+HI",6,4],["HI",5,4]],"g":[["OU",4,3],["KY",4,1],["GI",3,1],["FU",6,2]],"h":{"KI":1},"gh":{"FU":1}},{"n":5,"s":[["KA",2,2],["HI",2,3]],"g":[["OU",2,1],["KI",1,3]],"h":{"GI":1},"gh":{"GI":1}},{"n":5,"s":[["GI",1,5],["+HI",4,7]],"g":[["OU",1,3],["KI",2,2]],"h":{"KI":1,"HI":1},"gh":{"KE":1}},{"n":5,"s":[["GI",4,1],["+HI",5,4],["KA",1,2]],"g":[["OU",3,1]],"h":{"GI":1}},{"n":5,"s":[["FU",2,7],["HI",3,7],["GI",4,4]],"g":[["OU",2,3]],"h":{"HI":1}},{"n":5,"s":[["KA",1,4]],"g":[["OU",2,1],["FU",4,3]],"h":{"GI":1,"HI":1}},{"n":5,"s":[["HI",6,3],["KY",5,3],["KA",5,6]],"g":[["OU",4,3],["GI",4,1],["FU",3,3],["KI",5,2]],"h":{"KY":1,"KI":1}},{"n":5,"s":[["+KA",1,5]],"g":[["OU",1,1],["GI",2,1],["KY",3,3]],"h":{"KI":1}},{"n":5,"s":[["HI",1,3],["KY",4,3]],"g":[["OU",3,2],["FU",4,2]],"h":{"KI":1}},{"n":5,"s":[["KY",3,4],["+HI",2,7],["+KA",1,7]],"g":[["OU",4,3]],"h":{"KI":1}},{"n":5,"s":[["KI",4,3],["KY",2,6],["KY",4,5]],"g":[["OU",1,3]],"h":{"KI":1}},{"n":5,"s":[["KI",3,6],["HI",5,4]],"g":[["OU",3,3],["FU",1,4]],"h":{"HI":1}},{"n":5,"s":[["KA",1,1]],"g":[["OU",3,2],["KY",4,1],["FU",5,3],["GI",5,1]],"h":{"HI":2}},{"n":5,"s":[["KE",1,4],["+HI",3,5]],"g":[["OU",1,3],["KE",2,5]],"h":{"KI":1,"FU":1}},{"n":5,"s":[["+HI",4,1],["FU",4,5]],"g":[["OU",1,2],["KY",3,2]],"h":{"HI":1}},{"n":5,"s":[["+HI",4,4],["KI",5,2],["FU",3,3]],"g":[["OU",2,2]],"h":{"GI":1}},{"n":5,"s":[["HI",3,1]],"g":[["OU",1,2],["HI",3,2],["FU",2,1]],"h":{"KE":2}},{"n":5,"s":[["KE",4,6],["HI",2,7],["KI",2,5]],"g":[["OU",2,3],["KY",4,1]],"h":{"KI":1}},{"n":5,"s":[["KI",5,1],["FU",4,5],["+KA",3,4]],"g":[["OU",2,2],["FU",3,3]],"h":{"KI":1,"KE":1},"gh":{"FU":1}},{"n":5,"s":[["GI",2,7],["+KA",1,1],["GI",4,6]],"g":[["OU",1,3],["FU",1,4]],"h":{"GI":1,"KA":1},"gh":{"FU":1}},{"n":7,"s":[["HI",3,3]],"g":[["OU",1,2],["KI",2,2],["FU",1,1]],"h":{"KI":1,"GI":1}},{"n":7,"s":[["KE",1,4],["KA",3,1],["KI",2,2],["+HI",4,5]],"g":[["OU",1,3]],"h":{"KE":1}},{"n":7,"s":[["HI",1,3],["GI",4,3]],"g":[["OU",2,1],["KI",1,2]],"h":{"GI":1,"KA":1}},{"n":7,"s":[["HI",6,1],["KA",3,1],["KY",5,5],["KI",1,1]],"g":[["OU",4,1],["KI",5,1],["FU",2,1],["KY",6,3],["KI",5,2]],"h":{"KA":1,"GI":1}},{"n":7,"s":[["KY",3,6],["+HI",1,4],["GI",2,6],["+KA",4,3]],"g":[["OU",1,2],["KI",3,3],["KY",1,1],["GI",1,3],["FU",2,2]],"h":{"KY":1}},{"n":7,"s":[["KI",5,3],["KA",4,7],["KY",1,6]],"g":[["OU",2,3],["KI",1,3]],"h":{"HI":1,"KI":1},"gh":{"KY":1}},{"n":7,"s":[["GI",1,4],["GI",4,2],["KY",5,2],["KA",3,1]],"g":[["OU",2,1],["FU",4,3],["FU",1,2],["KY",3,3],["KI",1,1]],"h":{"KY":1,"KI":1},"gh":{"GI":1}},{"n":7,"s":[["KY",2,3],["HI",2,4],["+KA",4,5]],"g":[["OU",3,2],["KE",3,1]],"h":{"KI":1,"GI":1}},{"n":7,"s":[["KE",1,4],["GI",3,5]],"g":[["OU",1,2],["FU",2,3],["GI",2,2],["FU",1,3],["FU",3,2]],"h":{"KE":1,"HI":1},"gh":{"GI":1}},{"n":7,"s":[["HI",5,6],["HI",4,5]],"g":[["OU",2,2]],"h":{"FU":1,"KI":1},"gh":{"KE":1}},{"n":7,"s":[["+HI",3,7]],"g":[["OU",2,3]],"h":{"KA":1,"GI":2},"gh":{"FU":1}},{"n":7,"s":[["HI",1,4],["KI",5,2]],"g":[["OU",2,1]],"h":{"FU":1,"KA":1,"KI":1},"gh":{"FU":1}},{"n":7,"s":[["GI",1,6],["+HI",4,3],["KY",3,6],["KA",2,6]],"g":[["OU",2,2],["FU",4,2],["KI",2,1],["KI",3,2],["FU",3,1]],"h":{"KY":1},"gh":{"KY":1}},{"n":7,"s":[["HI",5,3]],"g":[["OU",2,1],["KA",3,1]],"h":{"GI":1,"FU":1}},{"n":7,"s":[["HI",2,5],["FU",4,5]],"g":[["OU",4,1]],"h":{"KA":1,"KI":2}}];
 const NAME={FU:'歩',KY:'香',KE:'桂',GI:'銀',KI:'金',KA:'角',HI:'飛',OU:'玉'};
 const PNAME={FU:'と',KY:'杏',KE:'圭',GI:'全',KA:'馬',HI:'龍'};
@@ -400,7 +403,7 @@ function load(i){mode='book';waiting=false;idx=i;startSpec(PROBS[i]);}
 function startSpec(spec){CUR=spec;pos=fromSpec(spec);hist=[];last=null;kifu=[];status='play';sel=null;hintSq=null;answer=null;
  msg=`${spec.n}手詰。攻め方の番です。`;msgCls='';$('seal').classList.remove('show');$('kifu').style.display='none';render();}
 function modesHTML(){return `<div class="modes"><button class="mode${mode==='book'?' on':''}" data-m="book">問題集</button><button class="mode${mode==='inf'?' on':''}" data-m="inf">無限モード</button><button class="mode${mode==='game'?' on':''}" data-m="game">対局</button><button class="mode${mode==='rules'?' on':''}" data-m="rules">ルール</button></div>`;}
-function showTsumeUI(on){$('charBar').style.display=on?'none':'flex';document.querySelector('.btns').style.display=on?'grid':'none';$('rules').style.display=on?'block':'none';$('gameBtns').style.display=on?'none':'grid';if(!on)$('bNext').style.display='none';}
+function showTsumeUI(on){$('charBar').style.display=(on||!SHOW_CHARS)?'none':'flex';document.querySelector('.btns').style.display=on?'grid':'none';$('rules').style.display=on?'block':'none';$('gameBtns').style.display=on?'none':'grid';if(!on)$('bNext').style.display='none';}
 function render(){if(mode==='rules'){rRender();return;}rShow(false);const P=CUR;const lens=[1,3,5,7];
  if(mode==='game'){gRender();return;}showTsumeUI(true);
  let ph=modesHTML();
@@ -604,12 +607,12 @@ function rRender(){rShow(true);$('qlabel').textContent='ルール';$('picker').i
  <h3>駒の動かし方</h3><p>自分の駒をタップすると、動ける場所に点が表示されます。点のあるマスをタップすると動きます。持駒は、駒をタップしてから打ちたいマスをタップします。成れるときは「成る」「成らない」を選べます。</p>
  <h3>問題集</h3><p>1手詰から7手詰まで全100問あります。手数のタブを切り替え、番号を選んで解きます。正解した問題には赤い印がつきます。「ヒント」を押すと動かす駒が光り、「答え」を押すと正解手順が表示されます。</p>
  <h3>無限モード</h3><p>その場で新しい問題を作って出題します。7手詰は作るのに少し時間がかかることがあります。</p>
- <h3>対局</h3><p>初級（ひより）・中級（こはる）・上級（凛）・名人（紫苑）の4人と対局できます。先手か後手を選んで始めます。「待った」で自分の1手前に戻れます。対局の途中でアプリを閉じても、続きから再開できます。</p>`;}
+ <h3>対局</h3><p>${SHOW_CHARS?'初級（ひより）・中級（こはる）・上級（凛）・名人（紫苑）の4人と対局できます。':'初級・中級・上級・名人の4段階の強さのコンピューターと対局できます。'}先手か後手を選んで始めます。「待った」で自分の1手前に戻れます。対局の途中でアプリを閉じても、続きから再開できます。</p>`;}
 
 // ===== 対局モード =====
 const LVN={1:'初級',2:'中級',3:'上級',4:'名人'};const GT=['','FU','KY','KE','GI','KI','KA','HI','OU'];
 let gChar={ev:null,line:'',expr:'normal'};
-function say(ev,prob){if(!gs)return;const c=CHARS[gs.level];if(prob!==undefined&&Math.random()>prob){gChar={ev:null,line:'',expr:'normal'};return;}const ls=c.lines[ev]||[''];gChar={ev,line:ls[Math.floor(Math.random()*ls.length)],expr:EXPR[ev]||'normal'};}
+function say(ev,prob){if(!gs)return;if(!SHOW_CHARS){gChar={ev:null,line:'',expr:'normal'};return;}const c=CHARS[gs.level];if(prob!==undefined&&Math.random()>prob){gChar={ev:null,line:'',expr:'normal'};return;}const ls=c.lines[ev]||[''];gChar={ev,line:ls[Math.floor(Math.random()*ls.length)],expr:EXPR[ev]||'normal'};}
 let gs=null,gSetup={level:2,side:0},gSel=null,gThinking=false,gWorker=null,gWorkerOK=true;
 function gSave(){try{localStorage.setItem('shogi-game-v1',JSON.stringify(gs?{level:gs.level,side:gs.side,moves:gs.moves,result:gs.result}:null));localStorage.setItem('shogi-setup-v1',JSON.stringify(gSetup));}catch(e){}}
 try{const s=JSON.parse(localStorage.getItem('shogi-setup-v1')||'null');if(s)gSetup=s;}catch(e){}
@@ -647,10 +650,10 @@ function aiReact(cv,sc){if(gs.result){say(gs.result==='lose'?'win':gs.result==='
 function meReact(cv){if(gs.result){say(gs.result==='win'?'lose':'win');return;}if(G.inCheck(gs.p,1-gs.side)){say('checked');return;}if(cv&&G.base(cv)>=2){say('captured');return;}gChar={ev:null,line:'',expr:'normal'};}
 function gEndCheck(){if(!gs||!gs.result)return;const s=$('seal');s.textContent=gs.result==='win'?'勝':gs.result==='lose'?'負':'分';s.classList.remove('show');void s.offsetWidth;s.classList.add('show');}
 function gRender(){rShow(false);const P=gs;const flip=gs?gs.side===1:false;
- $('qlabel').textContent=gs?`${CHARS[gs.level].name}と対局`:'対局';
+ $('qlabel').textContent=gs?(SHOW_CHARS?`${CHARS[gs.level].name}と対局`:`${LVN[gs.level]}と対局`):'対局';
  let ph=modesHTML();
- if(!gs||gs.result){ph+=`<div class="setup"><p class="lbl">相手の強さ</p><div class="seg" style="grid-template-columns:repeat(4,1fr)">${[1,2,3,4].map(l=>`<button data-lv="${l}" class="${gSetup.level===l?'on':''}">${LVN[l]}<small>${CHARS[l].name}</small></button>`).join('')}</div>
- <div class="preview"><div class="face">${charSVG(CHARS[gSetup.level],'happy')}</div><p><b>${CHARS[gSetup.level].name}</b>${CHARS[gSetup.level].title}・${LVN[gSetup.level]}<br>「${CHARS[gSetup.level].lines.start[0]}」</p></div>
+ if(!gs||gs.result){ph+=`<div class="setup"><p class="lbl">相手の強さ</p><div class="seg" style="grid-template-columns:repeat(4,1fr)">${[1,2,3,4].map(l=>`<button data-lv="${l}" class="${gSetup.level===l?'on':''}">${LVN[l]}<small>${SHOW_CHARS?CHARS[l].name:['はじめて','少し指せる','しっかり','本気'][l-1]}</small></button>`).join('')}</div>
+ ${SHOW_CHARS?`<div class="preview"><div class="face">${charSVG(CHARS[gSetup.level],'happy')}</div><p><b>${CHARS[gSetup.level].name}</b>${CHARS[gSetup.level].title}・${LVN[gSetup.level]}<br>「${CHARS[gSetup.level].lines.start[0]}」</p></div>`:''}
  <p class="lbl">あなたの手番</p><div class="seg" style="grid-template-columns:repeat(3,1fr)">${['先手','後手','ランダム'].map((n,i)=>`<button data-sd="${i}" class="${gSetup.side===i?'on':''}">${n}</button>`).join('')}</div>
  <button class="start" id="gStartBtn">${gs?'もう一局':'対局を始める'}</button></div>`;}
  else ph+=`<p class="ginfo"><span>相手：${LVN[gs.level]}</span><span>あなた：${gs.side===0?'先手 ▲':'後手 △'}</span><span>${gs.moves.length}手目</span></p>`;
@@ -671,9 +674,9 @@ function gRender(){rShow(false);const P=gs;const flip=gs?gs.side===1:false;
  $('goteHand').innerHTML=hand(1-my,false);$('senteHand').innerHTML=hand(my,true);
  let m='',cls='';if(!gs){m='強さと手番を選んで対局を始めましょう。';}
  else if(gs.result){m=gs.result==='win'?`${gs.reason}であなたの勝ちです。`:gs.result==='lose'?`${gs.reason}であなたの負けです。`:`${gs.reason}で引き分けです。`;cls=gs.result==='win'?'ok':gs.result==='lose'?'ng':'';}
- else if(gThinking)m=`${CHARS[gs.level].name}が考えています…`;else{m='あなたの番です。';if(G.inCheck(p,my)){m='王手されています。';cls='ng';}}
+ else if(gThinking)m=SHOW_CHARS?`${CHARS[gs.level].name}が考えています…`:'コンピューターが考えています…';else{m='あなたの番です。';if(G.inCheck(p,my)){m='王手されています。';cls='ng';}}
  const st=$('status');st.textContent=m;st.className='status '+cls;
- const cb=$('charBar');if(gs){cb.style.display='flex';const c=CHARS[gs.level];const ex=gThinking&&(!gChar.ev||gChar.ev==='think')?'think':gChar.expr;
+ const cb=$('charBar');if(gs&&SHOW_CHARS){cb.style.display='flex';const c=CHARS[gs.level];const ex=gThinking&&(!gChar.ev||gChar.ev==='think')?'think':gChar.expr;
   $('charFace').innerHTML=charSVG(c,ex);$('charName').innerHTML=`${c.name}<small>${c.title}・${LVN[gs.level]}</small>`;
   const bb=$('charBubble');const line=gChar.line||(gThinking?'…':'');const txt=line||'（盤面をじっと見ている）';if(bb.dataset.t!==txt){bb.textContent=txt;bb.dataset.t=txt;bb.classList.remove('pop');void bb.offsetWidth;bb.classList.add('pop');}bb.classList.toggle('quiet',!line);}
  else cb.style.display='none';

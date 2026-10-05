@@ -1,5 +1,5 @@
 // アプリを更新したら、この番号を1つ上げてください（例: v1 → v2）
-const VERSION = 'shogi-v6';
+const VERSION = 'shogi-v7';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './apple-touch-icon.png', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 
 self.addEventListener('install', e => {
